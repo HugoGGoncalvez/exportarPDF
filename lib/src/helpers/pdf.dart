@@ -11,14 +11,13 @@ Future<Uint8List> generarPDF(
     String fechaAplicacion,
     String fechaHoy) async {
   final pw.Document doc = pw.Document();
-  
 
   final ByteData bytes2 = await rootBundle.load('assets/logo_mvacuna.png');
   final Uint8List imgEncabezado = bytes2.buffer.asUint8List();
 
   doc.addPage(pw.MultiPage(
       pageFormat:
-          PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
+          PdfPageFormat.a4.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       header: (pw.Context context) {
         if (context.pageNumber == 1) {
