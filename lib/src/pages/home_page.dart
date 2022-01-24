@@ -7,7 +7,6 @@ class HomePage extends StatelessWidget {
       TextEditingController();
   final TextEditingController textCantidadController = TextEditingController();
   final TextEditingController textValorController = TextEditingController();
-  final encabezado = ['Descripción Vacuna', 'Dosis', 'Cantidad'];
 
   final String usuario = 'Juan Perez';
   final String fechaAplicacion = '21/01/2022';
@@ -17,10 +16,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    int total = 0;
+    int totalAplicaciones = 0;
     List<List<String>> miLista = [];
-    String fechahoy =
-        "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year.toString()} ";
 
     return Scaffold(
       appBar: AppBar(
@@ -61,15 +58,16 @@ class HomePage extends StatelessWidget {
                         listaTemp.add(textValorController.text);
 
                         miLista.add(listaTemp);
-                        total += int.tryParse(textValorController.text)!;
+                        totalAplicaciones +=
+                            int.tryParse(textValorController.text)!;
                         textValorController.clear();
                       },
                       child: const Text('Agregar')),
                   TextButton(
                       onPressed: () {
                         (miLista.isNotEmpty)
-                            ? datosPdf(miLista, encabezado, total, usuario,
-                                fechaAplicacion, fechahoy)
+                            ? datosPdf(miLista, totalAplicaciones, usuario,
+                                fechaAplicacion)
                             : null;
                       },
                       child: const Text('Exportar')),

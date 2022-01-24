@@ -3,14 +3,12 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 
-Future<Uint8List> generarPDF(
-    List<List<String>> miLista,
-    List<String> encabezado,
-    int total,
-    String usuario,
-    String fechaAplicacion,
-    String fechaHoy) async {
+Future<Uint8List> generarPDF(List<List<String>> miLista, int total,
+    String usuario, String fechaAplicacion) async {
   final pw.Document doc = pw.Document();
+  final encabezado = ['Descripción Vacuna', 'Dosis', 'Cantidad'];
+  String fechahoy =
+      "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year.toString()} ";
 
   final ByteData bytes2 = await rootBundle.load('assets/logo_mvacuna.png');
   final Uint8List imgEncabezado = bytes2.buffer.asUint8List();
@@ -50,7 +48,7 @@ Future<Uint8List> generarPDF(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                   pw.Text('Usuario: $usuario'),
-                  pw.Text('Fecha: $fechaHoy'),
+                  pw.Text('Fecha: $fechahoy'),
                 ])),
             pw.Paragraph(text: ""),
             pw.Container(
