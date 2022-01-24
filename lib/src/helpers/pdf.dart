@@ -36,13 +36,12 @@ Future<Uint8List> generarPDF(List<List<String>> miLista, int total,
             pw.Container(
                 child: pw.Image(pw.MemoryImage(imgEncabezado)),
                 alignment: pw.Alignment.topLeft,
-                height: 50),
+                height: 30),
             pw.Paragraph(text: ""),
             pw.Container(
                 height: 10,
                 child: pw.Expanded(
                     child: pw.Divider(thickness: 1.5, color: PdfColors.grey))),
-            pw.Paragraph(text: ""),
             pw.Container(
                 child: pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
