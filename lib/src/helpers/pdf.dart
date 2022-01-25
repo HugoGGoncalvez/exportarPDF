@@ -3,10 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 
-Future<Uint8List> generarPDF(List<List<String>> miLista, int total,
-    String usuario, String fechaAplicacion) async {
+Future<Uint8List> generarPDF(Map<String, double> aplicaciones, String usuario,
+    String fechaAplicacion, int cantidadTotal, int cantidadError) async {
   final pw.Document doc = pw.Document();
-  final encabezado = ['Descripción Vacuna', 'Dosis', 'Cantidad'];
+  final encabezado = ['Descripción Vacuna', 'Cantidad'];
   String fechahoy =
       "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year.toString()} ";
 
@@ -61,8 +61,7 @@ Future<Uint8List> generarPDF(List<List<String>> miLista, int total,
                 headerAlignments: {0: pw.Alignment.center},
                 cellAlignments: {
                   0: pw.Alignment.centerLeft,
-                  1: pw.Alignment.centerLeft,
-                  2: pw.Alignment.centerRight,
+                  1: pw.Alignment.centerRight
                 },
                 context: context,
                 border: const pw.TableBorder(
@@ -79,18 +78,16 @@ Future<Uint8List> generarPDF(List<List<String>> miLista, int total,
                 headerCount: 1,
                 cellPadding: const pw.EdgeInsets.only(left: 5, right: 5),
                 data: <List<dynamic>>[
-                  for (int i = 0; i < miLista.length; i++)
+                  for (int i = 0; i < aplicaciones.length; i++)
                     [
-                      for (var e = 0; e < miLista[i].length; e++)
-                        {
-                          miLista[i][e],
-                        }
-                            .reduce((value, element) => value + element)
-                            .replaceAll('{', '')
+                      aplicaciones.keys.elementAt(i),
+                      aplicaciones.values.elementAt(i)
                     ],
                 ]),
             pw.Paragraph(text: ""),
-            pw.Paragraph(text: "Total: $total aplicaciones."),
+            pw.Paragraph(text: "Total: $cantidadTotal aplicaciones."),
+            pw.Paragraph(
+                text: "Total con Errores: $cantidadError aplicaciones."),
             pw.Padding(padding: const pw.EdgeInsets.all(10)),
             pw.Paragraph(text: ""),
           ]));
