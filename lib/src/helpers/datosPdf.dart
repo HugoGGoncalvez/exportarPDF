@@ -8,7 +8,8 @@ Future<void> datosPdf(Map<String, double> aplicaciones, String usuario,
     String fechaAplicacion, int cantidadTotal, int cantidadError) async {
   String texto = 'Envío de Reporte';
   Directory tempDir = await getTemporaryDirectory();
-  final file = File("${tempDir.path}/miPDF.pdf");
+  final file = File(
+      "${tempDir.path}/$usuario ${fechaAplicacion.replaceAll('/', '-')}.pdf");
   final pdf = await generarPDF(
       aplicaciones, usuario, fechaAplicacion, cantidadTotal, cantidadError);
   await file.writeAsBytes(pdf);

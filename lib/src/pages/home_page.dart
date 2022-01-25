@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   final TextEditingController textValorController = TextEditingController();
 
   final String usuario = 'Juan Perez';
-  final String fechaAplicacion = '21/01/2022';
+  final String fechaAplicacion = '21-01-2022';
   final aplicaciones = <String, double>{};
   int cantidadTotal = 1000;
   int cantidadError = 1250;
