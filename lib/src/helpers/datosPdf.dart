@@ -12,7 +12,7 @@ Future<void> datosPdf(Map<String, double> aplicaciones, String usuario,
       aplicaciones, usuario, fechaAplicacion, cantidadTotal, cantidadError);
   await file.writeAsBytes(pdf);
 
-  const String texto = 'Te paso el PDF !!';
+  const String texto = 'Envío de Reporte';
 
   await Share.shareFiles([file.path], text: texto);
 }
